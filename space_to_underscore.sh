@@ -1,12 +1,12 @@
 #!/bin/bash
 #=============================================================#
-# Name:         Space to Underscore	                          #
+# Name:         Space to Underscore                           #
 # Description:  Recursively replace spaces with underscores   #
 #               in file and directory names.                  #
 # Version:      ver 1.2                                       #
 # Data:         16.6.2014                                     #
-# Author:       Arthur (Berserkr) Gareginyan                  #
-# Author URI:   http://www.arthurgareginyan.com               #
+# Author:       Arthur Gareginyan                             #
+# Author URI:   https://www.arthurgareginyan.com              #
 # Email:        arthurgareginyan@gmail.com                    #
 # License:      GNU General Public License, version 3 (GPLv3) #
 # License URI:  http://www.gnu.org/licenses/gpl-3.0.html      #
@@ -15,7 +15,7 @@
 #               	USAGE:
 #		chmod +x space_to_underscore.sh
 #		cd /home/user/example
-#		~/space_to_underscore.sh
+#		~/space_to_underscore.sh "find_this" "replace_with_this"
 
 # Check for proper priveliges
 [ "`whoami`" = root ] || exec sudo "$0" "$@"
@@ -51,11 +51,11 @@ for (( i = ${#array[@]}; i; )); do
      for name in *
      do
      	     # Check for spaces in names of files and directories.
-	     echo "$name" | grep -q " "
+	     echo "$name" | grep -q "$1"
 	     if [ $? -eq 0 ]
 	     then
 	     	# Replacing spaces with underscores.
-	        newname=`echo $name | sed -e "s/ /_/g"`
+	        newname=`echo $name | sed -e "s/$1/$2/g"`
 		if [ -e $newname ]
         	then
 			let "number_not +=1"
@@ -64,7 +64,7 @@ for (( i = ${#array[@]}; i; )); do
         		# Plus one to number.
                 	let "number += 1"
                     	# Message about rename.
-                	echo "$number Renaming: $name"
+                	echo "$number Renaming: ${array[i]}/$name"
                 	# Rename.
 		        mv "$name" "$newname"
 		fi
