@@ -39,7 +39,7 @@ cd /home/user/example
 
 Run the space_to_underscore.sh which placed in user home directory:
 ```
-~/space_to_underscore.sh
+~/space_to_underscore.sh "find_this" "replace_with_this"
 ```
 
 ## License
